@@ -100,31 +100,64 @@ const userMiddleware = (store) => (next) => async (action) => {
       next(action);
       const { user } = store.getState();
 
-      const config = {
+      if (!user.guestId) {
+        const config = {
 
-        method: 'post',
-        url: 'https://api-compagnon-jdr.herokuapp.com/api/auth/register',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: { email: user.userEmail, username: user.userName, password: user.userPassword },
-        withCredentials: true,
-      };
+          method: 'post',
+          url: 'https://api-compagnon-jdr.herokuapp.com/api/auth/register',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: { email: user.userEmail, username: user.userName, password: user.userPassword },
+          withCredentials: true,
+        };
 
-      axios(config)
-        .then((response) => {
-          store.dispatch(submitRegisterSuccess(response.data));
-          localStorage.removeItem('token');
-          localStorage.removeItem('userId');
-          localStorage.removeItem('guestId');
-        })
-        .catch((error) => {
-          store.dispatch(submitError(error.response.data));
-          console.log(error);
-        })
-        .finally(() => {
-          store.dispatch(handleIsLoading());
-        });
+        axios(config)
+          .then((response) => {
+            store.dispatch(submitRegisterSuccess(response.data));
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('guestId');
+            console.log('submit user register succes');
+          })
+          .catch((error) => {
+            store.dispatch(submitError(error.response.data));
+            console.log(error);
+          })
+          .finally(() => {
+            store.dispatch(handleIsLoading());
+          });
+      }
+      else if (user.guestId) {
+        const config = {
+
+          method: 'post',
+          url: `https://api-compagnon-jdr.herokuapp.com/api/guest/${user.guestId}/confirm-register`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `bearer ${user.token}`,
+          },
+          data: { email: user.userEmail, username: user.userName, password: user.userPassword },
+          withCredentials: true,
+        };
+
+        axios(config)
+          .then((response) => {
+            store.dispatch(submitRegisterSuccess(response.data));
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('guestId');
+            console.log(response.data);
+            console.log('submit guest register succes');
+          })
+          .catch((error) => {
+            store.dispatch(submitError(error.response.data));
+            console.log(error);
+          })
+          .finally(() => {
+            store.dispatch(handleIsLoading());
+          });
+      }
 
       // si je veux gérer un état de loading, je peux nexter aussi
       // SUBMIT_LOGIN
@@ -311,7 +344,7 @@ const userMiddleware = (store) => (next) => async (action) => {
 
         method: 'get',
         // NOUVELLE ROUTE
-        url: `https://api-compagnon-jdr.herokuapp.com/api/profile/${user.guestId}`,
+        url: `https://api-compagnon-jdr.herokuapp.com/api/guest/${user.guestId}`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `bearer ${user.token}`,

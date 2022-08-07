@@ -5,6 +5,10 @@
   justify-content: center;
   align-items: center;
   margin-right: 0.5rem;
+  background-color: #1E1A18;
+  opacity: 0.85;
+  border-radius: 20px;
+  padding: 0.5rem;
 
   &_container{
     display: flex;
@@ -25,4 +29,8 @@
   margin-top:1em;
   width:100px;
   border-radius: 30px;
+}
+
+.result_diceRoll_container_title {
+  color: white;
 }

@@ -95,13 +95,12 @@ export const submitError = (response) => ({
 
 export const submitRegisterSuccess = (response) => ({
   type: SUBMIT_REGISTER_SUCCESS,
-  ...response,
+  response,
 });
 
 export const getUserProfile = () => ({
   type: GET_USER_PROFILE,
 });
-
 
 export const saveUserProfile = (response) => ({
   type: SAVE_USER_PROFILE,

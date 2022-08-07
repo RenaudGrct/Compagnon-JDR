@@ -1,11 +1,13 @@
 [
   {
-    "name" : "paladin"
+    "name" : "paladin",
+    "image": "/images/paladin.png"
    
   },
 
 
   {
-    "name" : "Guerrier" 
+    "name" : "Guerrier",
+    "image": "/images/guerrier.png"
   }
 ]

@@ -45,6 +45,7 @@ export default function Name() {
         </Typography>
 
         <TextField
+          variant="filled"
           required
           label="Nom du personnage"
           name="name"

@@ -68,8 +68,6 @@ export default function Register() {
             marginTop: '5rem',
             padding: '1rem',
             gap: '2rem',
-            backgroundColor: 'primary.main',
-            opacity: [0.7, 0.7, 0.7],
           }}
           noValidate
           autoComplete="off"

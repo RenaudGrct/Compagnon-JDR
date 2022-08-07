@@ -15,12 +15,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 
 // import Select from '@mui/material/Select';
 // import MenuItem from '@mui/material/MenuItem';
 // import InputLabel from '@mui/material/InputLabel';
-
-import avatar from 'src/assets/images/drakeide.jpg';
 
 import races from 'src/assets/Data/races.json';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +32,14 @@ import {
   getRace,
   toggleIsFetched,
 } from 'src/actions/characters';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'rgba(121,103,72,0.54)',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.primary.contrastText,
+}));
 
 export default function Race() {
   const dispatch = useDispatch();
@@ -116,18 +124,27 @@ export default function Race() {
                       justifyContent: 'center',
                     }}
                   >
-                    <Avatar alt="User Avatar" src={avatar} sx={{ width: 84, height: 84 }} />
-                    <FormControlLabel
-                      value={raceSelected.name}
-                      label={raceSelected.name}
-                      checked={selectedRace === raceSelected.name}
-                      onClick={(event) => {
-                        dispatch(selectRace(event.target.value));
-                        dispatch(getRace());
-                      }}
-                      control={<Radio sx={{ color: 'primary.contrastText' }} />}
-                      labelPlacement="top"
-                    />
+                    <Item sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '1rem',
+                      width: '20rem',
+                    }}
+                    >
+                      <Avatar alt="User Avatar" src={raceSelected.image} sx={{ width: 84, height: 84 }} />
+                      <FormControlLabel
+                        value={raceSelected.name}
+                        label={raceSelected.name}
+                        checked={selectedRace === raceSelected.name}
+                        onClick={(event) => {
+                          dispatch(selectRace(event.target.value));
+                          dispatch(getRace());
+                        }}
+                        control={<Radio sx={{ color: 'primary.contrastText' }} />}
+                        labelPlacement="top"
+                      />
+                    </Item>
 
                   </Box>
                   <Dialog
@@ -143,12 +160,12 @@ export default function Race() {
                         fontFamily: 'monospace',
                       }}
                       >
-                        {fetchedCharacterRaceObject.name}
-                        <Avatar alt="User Avatar" src={avatar} sx={{ width: 60, height: 60 }} />
+                        {fetchedCharacterRaceObject?.name}
+                        <Avatar alt="User Avatar" src={raceSelected.image} sx={{ width: 60, height: 60 }} />
                       </DialogTitle>
                       <DialogContent sx={{ backgroundColor: 'primary.main' }}>
                         <DialogContentText sx={{ color: 'primary.contrastText', fontFamily: 'monospace' }}>
-                          {fetchedCharacterRaceObject.racial_ability.map((ability) => (
+                          {fetchedCharacterRaceObject?.racial_ability?.map((ability) => (
                             <>
                               <p key={ability.racial_ability_name}>{ability.description}</p>
                               {/* <FormControl sx={{ width: '100%', marginTop: '1rem' }}>
@@ -170,16 +187,16 @@ export default function Race() {
                               </FormControl> */}
                             </>
                           ))}
-                          <p>vitesse de: {fetchedCharacterRaceObject.speed}</p>
+                          <p>vitesse de: {fetchedCharacterRaceObject?.speed}</p>
                           <p>Bonus de Race</p>
-                          {fetchedCharacterRaceObject.score_modifier.map((score) => (
+                          {fetchedCharacterRaceObject?.score_modifier?.map((score) => (
                             <p key={score.score_name}>{score.score_name}: {score.score_number}</p>
                           ))}
                           <p>langue parlé :</p>
                           {fetchedCharacterRaceObject.languages.map((lang) => (
                             <p key={lang}>{lang}</p>
                           ))}
-                          <p>langue supplémentaire: {fetchedCharacterRaceObject.extra_language}</p>
+                          <p>langue supplémentaire: {fetchedCharacterRaceObject?.extra_language}</p>
                         </DialogContentText>
                       </DialogContent>
                     </>

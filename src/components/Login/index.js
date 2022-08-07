@@ -21,6 +21,7 @@ import {
   submitLogin,
   handleIsRedirect,
   handleIsSubmitError,
+  handleIsSuccess,
   // getUserProfile,
 } from 'src/actions/user';
 
@@ -45,6 +46,8 @@ export default function Login() {
     submitError,
     isLogged,
     isLoggedAsGuest,
+    registerMessage,
+    isSuccess,
   } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -53,6 +56,9 @@ export default function Login() {
   useEffect(() => {
     dispatch(handleIsRedirect());
     dispatch(handleIsSubmitError());
+    return () => {
+      dispatch(handleIsSuccess());
+    };
   }, []);
 
   useEffect(() => {
@@ -98,6 +104,8 @@ export default function Login() {
           }}
         >
           {isLoading && <CircularProgress color="secondary" />}
+
+          {isSuccess && <Alert severity="success">{registerMessage.successMessage}</Alert>}
 
           {submitError && <Alert severity="error">{errorMessage}!</Alert>}
           <Field

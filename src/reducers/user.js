@@ -51,6 +51,7 @@ export const initialState = {
   isRedirect: false,
   token: '',
   isSuccess: false,
+  registerMessage: '',
 
 };
 
@@ -89,7 +90,6 @@ const reducer = (state = initialState, action = {}) => {
         token: action.token,
         guestId: action.guestId,
       };
-      
 
     case SUBMIT_LOGIN_SUCCESS:
       return {
@@ -116,9 +116,10 @@ const reducer = (state = initialState, action = {}) => {
         token: '',
         isLogged: false,
         isLoggedAsGuest: false,
-
-
+        userId: '',
+        guestId: '',
       };
+
     case SUBMIT_REGISTER:
       return {
         ...state,
@@ -141,6 +142,8 @@ const reducer = (state = initialState, action = {}) => {
         isLoading: false,
         isRedirect: true,
         errorMessage: '',
+        registerMessage: action.response,
+        isSuccess: true,
       };
     case SUBMIT_ERROR:
       return {
@@ -211,8 +214,8 @@ const reducer = (state = initialState, action = {}) => {
         userName: action.username,
         userEmail: action.email,
         guestId: action.id,
-        isLogged: true,
         isLoading: false,
+        isLoggedAsGuest: true,
       };
     case UPDATE_USER_PASSWORD:
       return {
@@ -273,6 +276,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         isLogged: false,
         isLoggedAsGuest: true,
+        userId: '',
         guestId: action.guest.id,
         userName: action.guest.username,
         userEmail: action.guest.email,

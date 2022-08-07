@@ -20,10 +20,12 @@ import Background from 'src/components/Character/Creation/Background';
 import Stats from 'src/components/Character/Creation/Stats';
 import Validate from 'src/components/Character/Creation/Validate';
 import Avatar from 'src/components/Character/Creation/Name/Avatar';
-import Character from 'src/components/Character/Details';
-import CharacterEquipment from 'src/components/Character/Details/Equipment';
-import CharacterProficiencies from 'src/components/Character/Details/Proficiencies';
-import CharacterHistory from 'src/components/Character/Details/History';
+// import Character from 'src/components/Character/Details';
+// import CharacterEquipment from 'src/components/Character/Details/Equipment';
+// import CharacterProficiencies from 'src/components/Character/Details/Proficiencies';
+// import CharacterHistory from 'src/components/Character/Details/History';
+import NotFound from 'src/components/404';
+import MyCharacterDetails from 'src/components/Character/MyCharacter';
 
 import './styles.css';
 
@@ -45,6 +47,7 @@ const theme = createTheme({
     },
     secondary: {
       main: '#CB7C1E',
+      dark: '#b7afa2',
     },
     background: {
       paper: '#ffffff',
@@ -61,9 +64,6 @@ const theme = createTheme({
     success: {
       main: '#149418',
     },
-    // text: {
-    //   primary: 'rgba(255,255,255,0.87)',
-    // },
   },
 });
 
@@ -126,10 +126,11 @@ function App() {
           <Route path="/creation/stats" element={<Stats />} />
           <Route path="/creation/validate" element={<Validate />} />
           <Route path="/creation/avatar" element={<Avatar />} />
-          <Route path="/character/" element={<Character />} />
-          <Route path="/character/equipment" element={<CharacterEquipment />} />
+          <Route path="/character" element={<MyCharacterDetails />} />
+          {/* <Route path="/character/equipment" element={<CharacterEquipment />} />
           <Route path="/character/proficiencies" element={<CharacterProficiencies />} />
-          <Route path="/character/history" element={<CharacterHistory />} />
+          <Route path="/character/history" element={<CharacterHistory />} /> */}
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
         <Footer />

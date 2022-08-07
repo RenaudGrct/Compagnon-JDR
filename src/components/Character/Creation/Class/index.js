@@ -22,7 +22,6 @@ import { useEffect } from 'react';
 
 import CharacterCreation from 'src/components/Character/Creation';
 
-import avatar from 'src/assets/images/guerrier.png';
 import classes from 'src/assets/Data/classes.json';
 
 import {
@@ -138,7 +137,7 @@ export default function Class() {
                          width: '20rem',
                        }}
                        >
-                         <Avatar alt="User Avatar" src={avatar} sx={{ width: 54, height: 54 }} />
+                         <Avatar alt="User Avatar" src={classSelected.image} sx={{ width: 54, height: 54 }} />
                          <FormControlLabel
                            labelPlacement="start"
                            value={classSelected.name}
@@ -170,22 +169,22 @@ export default function Class() {
                            fontFamily: 'monospace',
                          }}
                          >
-                           {fetchedCharacterClassObject.name}
-                           <Avatar alt="User Avatar" src={avatar} sx={{ width: 60, height: 60 }} />
+                           {fetchedCharacterClassObject?.name}
+                           <Avatar alt="User Avatar" src={classSelected.image} sx={{ width: 60, height: 60 }} />
                          </DialogTitle>
                          <DialogContent sx={{ backgroundColor: 'primary.main' }}>
                            <DialogContentText sx={{ color: 'primary.contrastText', fontFamily: 'monospace' }}>
                              {/* <p>Point de vie : {characterClass.hit_point}</p> */}
-                             <p>competence de :</p>
+                             <p>jets de sauvegarde :</p>
                              {
-                           fetchedCharacterClassObject.proficiencies.map((proficiency) => (
+                           fetchedCharacterClassObject?.proficiencies?.map((proficiency) => (
                              proficiency.saving_throws.map((save) => (
                                <p key={save}>{save},</p>
                              ))
                            ))
                             }
-                             <p>choisit tes skills :</p>
-                             {fetchedCharacterClassObject.proficiencies.map((proficiency) => (
+                             <p>choisit tes compétences :</p>
+                             {fetchedCharacterClassObject?.proficiencies?.map((proficiency) => (
                                <Autocomplete
                                  key={proficiency.id}
                                  sx={{ backgroundColor: 'secondary.main' }}
@@ -214,7 +213,7 @@ export default function Class() {
                                    <TextField
                                      {...params}
                                      variant="filled"
-                                     label="skills"
+                                     label="compétences"
                                    />
                                  )}
                                />
@@ -252,7 +251,7 @@ export default function Class() {
                                  onChange={(e) => dispatch(selectStat('classAbility', e.target.value))}
                                  sx={{ width: '10rem', marginTop: '1rem' }}
                                >
-                                 {fetchedCharacterClassObject.feature.map((feat) => (
+                                 {fetchedCharacterClassObject.feature?.map((feat) => (
                                    feat.choices?.map((choice) => (
                                      <MenuItem value={choice.id}>
                                        {choice.name}

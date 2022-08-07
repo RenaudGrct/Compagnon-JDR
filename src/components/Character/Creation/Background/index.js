@@ -156,7 +156,7 @@ export default function Background() {
                     </DialogTitle>
                     <DialogContent sx={{ backgroundColor: 'primary.main' }}>
                       <DialogContentText sx={{ color: 'primary.contrastText', fontFamily: 'monospace' }}>
-                        <p>abilité : {background.ability}</p>
+                        <p>capacité : {background.ability}</p>
                         <p>{background.ability_description}</p>
                         <p>langue additionnelle : {background.additional_language}</p>
                         {/* {background.skills.map((skill) => (

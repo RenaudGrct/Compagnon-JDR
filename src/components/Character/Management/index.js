@@ -11,13 +11,13 @@ import Alert from '@mui/material/Alert';
 // import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   handleIsSuccess,
+  handleIsRedirect,
 } from 'src/actions/user';
 import {
   submitCharacterDeletion,
@@ -32,6 +32,8 @@ export default function CharacterManagement() {
     userId,
   } = useSelector((state) => state.user);
 
+  const { characterIsDelete } = useSelector((state) => state.characters);
+
   const {
     myCharacters,
   } = useSelector((state) => state.characters.character);
@@ -39,6 +41,7 @@ export default function CharacterManagement() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(handleIsRedirect());
     console.log('hello');
     return () => {
       dispatch(handleIsSuccess());
@@ -47,12 +50,13 @@ export default function CharacterManagement() {
 
   useEffect(() => {
     dispatch(getAllCharacters());
-  }, [userId]);
+  }, [userId, characterIsDelete]);
 
   const navigate = useNavigate();
 
-  const handleCharacterDeletion = () => {
+  const handleCharacterDeletion = (e) => {
     console.log('je suis le handleCharacterDeletion');
+    dispatch(storeCharacterId(e.currentTarget.value));
     dispatch(submitCharacterDeletion());
   };
 
@@ -75,17 +79,31 @@ export default function CharacterManagement() {
         alignItems: 'center',
       }}
       >
+        <Typography
+          variant="h5"
+          noWrap
+          sx={{
+            flexGrow: 1,
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '.3rem',
+            // color: 'primary.contrastText',
+            textDecoration: 'none',
+            marginTop: '3rem',
+          }}
+        >Mes Personnages
+        </Typography>
         <Link to="/creation/name">
           <Button
             color="secondary"
             variant="contained"
             type="button"
             sx={{
-              width: '15rem',
+              width: '17rem',
               marginTop: '5rem',
             }}
           >
-            Créer un Personnage
+            Créer Nouveau Personnage
           </Button>
         </Link>
         {myCharacters.length ? (
@@ -100,7 +118,7 @@ export default function CharacterManagement() {
                     src={`images/${character.race}.jpg`}
                     // alt="green iguana"
                     alt={`/images/${character.race},jpg`}
-                    height="300px"
+                    height="200px"
                   />
                   <CardContent>
                     <Typography align="center" gutterBottom variant="h4" component="div">
@@ -138,7 +156,8 @@ export default function CharacterManagement() {
                         <ModeEditIcon fontSize="inherit" color="primary" />
                       </IconButton>
                       <IconButton
-                        onClick={() => handleCharacterDeletion()}
+                        value={character.id}
+                        onClick={(e) => handleCharacterDeletion(e)}
                       >
                         <DeleteForeverIcon
                           fontSize="inherit"
@@ -155,7 +174,7 @@ export default function CharacterManagement() {
             ))}
           </Grid>
         )
-          : <CircularProgress sx={{ marginTop: '10rem' }} color="secondary" />}
+          : <Alert sx={{ marginTop: '5rem' }} severity="info">Vous n'avez pas de personnages</Alert>}
 
       </Box>
     </>

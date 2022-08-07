@@ -4,6 +4,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import PropTypes from 'prop-types';
 
+import Button from '@mui/material/Button';
+
 import stats from 'src/assets/Data/stats.json';
 
 import './diceRoll.scss';
@@ -24,7 +26,7 @@ export default function DiceRoller({
     <div className="result_diceRoll">
 
       <div className="result_diceRoll_container">
-        <p> {result}</p>
+        <p className="result_diceRoll_container_title"> {result}</p>
         <div className="result_dice_container">
           <div className="minicube__face">{diceResultOne}</div>
           <div className="minicube__face">{diceResultTwo}</div>
@@ -32,13 +34,13 @@ export default function DiceRoller({
           <div className="minicube__face">{diceResultFour}</div>
         </div>
       </div>
-      <FormControl sx={{ width: '100%', marginTop: '1rem' }}>
-        <InputLabel>Statistique</InputLabel>
+      <FormControl variant="standard" sx={{ width: '100%', marginTop: '1rem' }}>
+        <InputLabel sx={{ color: 'primary.contrastText' }}>Stat</InputLabel>
         <Select
           value={statsDropdown}
           label="stats"
           onChange={(e) => handleChange(e)}
-          sx={{ width: '10rem', marginTop: '1rem' }}
+          sx={{ width: '10rem', marginTop: '1rem', color: 'primary.contrastText' }}
         >
           {
             stats.map((stat) => (
@@ -56,13 +58,18 @@ export default function DiceRoller({
         </Select>
       </FormControl>
       {!isDiceSum && (
-      <button
-        type="button"
-        className="RollBtn"
-        onClick={diceRoll}
-      >
-        Lancer
-      </button>
+        <Button
+          color="primary"
+          variant="contained"
+          type="button"
+          sx={{
+            width: '5rem',
+            marginTop: '3rem',
+          }}
+          onClick={diceRoll}
+        >
+          Lancer
+        </Button>
       )}
     </div>
 

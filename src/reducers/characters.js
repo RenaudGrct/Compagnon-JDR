@@ -21,11 +21,12 @@ import {
   GET_BACKGROUND_SUCCESS,
   // BACKGROUND_IS_FETCHED,
   SUBMIT_CHARACTER_CREATION_SUCCESS,
+  SUBMIT_CHARACTER_DELETION,
   SUBMIT_CHARACTER_DELETION_SUCCESS,
   SELECT_SKILLS,
   GET_ALL_CHARACTERS_SUCCESS,
   CLEAR_CHARACTERS,
-  // GET_CHARACTER_SUCCESS,
+  GET_CHARACTER_SUCCESS,
   STORE_CHARACTER_ID,
 } from 'src/actions/characters';
 
@@ -34,9 +35,10 @@ export const initialState = {
   raceIsFetched: false,
   classIsFetched: false,
   backgroundIsFetched: false,
+  characterIsDelete: false,
 
   character: {
-
+    selectedCharacter: [],
     storedCharacterId: '',
     myCharacters: [],
     name: '',
@@ -327,9 +329,16 @@ const reducer = (state = initialState, action = {}) => {
         },
       };
 
+    case SUBMIT_CHARACTER_DELETION:
+      return {
+        ...state,
+        characterIsDelete: false,
+      };
+
     case SUBMIT_CHARACTER_DELETION_SUCCESS:
       return {
         ...state,
+        characterIsDelete: true,
       };
 
     case SUBMIT_CHARACTER_CREATION_SUCCESS:
@@ -460,14 +469,33 @@ const reducer = (state = initialState, action = {}) => {
         },
       };
 
-      //     case GET_CHARACTER_SUCCESS:
-      //       return {
-      //         ...state,
-      //         character: {
-      //           ...state.character,
-      //           myCharacters: action.response,
-      //         },
-      // };
+    case GET_CHARACTER_SUCCESS:
+      return {
+        ...state,
+        character: {
+          ...state.character,
+          view: action.response,
+
+          selectedCharacterName: action.response.name,
+          selectedCharacterClass: action.response.class.name,
+          proficiencies: action.response.class.proficiencies,
+          features: action.response.class.features,
+          selectedCharacterRace: action.response.race.name,
+          langue: action.response.race.language,
+          abilityRace: action.response.race.racial_ability,
+          selectedCharacterBackground: action.response.background.name,
+          abilityBackground: action.response.background.ability,
+          abilityBackgroundDescription: action.response.background.ability_description,
+          selectedCharacterSkills: action.response.background.skill,
+          selectedStrenght: action.response.ability_score.strength,
+          selectedDexterity: action.response.ability_score.dexterity,
+          selectedConstitution: action.response.ability_score.constitution,
+          selectedWisdom: action.response.ability_score.wisdom,
+          selectedIntelligence: action.response.ability_score.intelligence,
+          selectedCharisma: action.response.ability_score.charisma,
+
+        },
+      };
     case STORE_CHARACTER_ID:
       return {
         ...state,

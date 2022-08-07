@@ -3,6 +3,7 @@ import CharacterCreation from 'src/components/Character/Creation';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
 
 import DiceRoll from 'src/components/Character/Creation/Stats/DiceRoll';
 
@@ -197,7 +198,7 @@ export default function Stats() {
             flexGrow: 1,
             fontFamily: 'monospace',
             fontWeight: 700,
-            letterSpacing: '.3rem',
+            letterSpacing: '.2rem',
             // color: 'primary.contrastText',
             textDecoration: 'none',
             marginBottom: '5rem',
@@ -259,15 +260,21 @@ export default function Stats() {
             </div>
           </div>
         </div>
-        <button
+        <Button
+          color="secondary"
+          variant="contained"
           type="button"
-          className="rollBtn"
+          sx={{
+            width: '15rem',
+            marginTop: '5rem',
+          }}
           onClick={() => {
             dispatch(resetThrows());
           }}
         >
-          recommencer
-        </button>
+          Relancés les Dés
+        </Button>
+
         <div className="result_dice">
 
           <DiceRoll

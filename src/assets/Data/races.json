@@ -1,10 +1,12 @@
 [
   {
-    "name" : "Drakéide" 
+    "name" : "Drakéide",
+    "image": "/images/Drakéide.jpg" 
     
   },
 
   {
-    "name" : "Humain"
+    "name" : "Humain",
+    "image": "/images/Humain.jpg"
   }
 ]

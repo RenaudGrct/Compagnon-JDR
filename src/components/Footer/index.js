@@ -1,32 +1,71 @@
-import { Link } from 'react-router-dom';
-
-import aboutLogo from 'src/assets/images/tieffeline.png';
-import contactLogo from 'src/assets/images/nain.png';
-import politieLogo from 'src/assets/images/hobit.png';
-
-import './footer.scss';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <Link to="/" className="footer_link">
-        <div className="footer_link_container">
-          <p className="footer_link_text">A propos</p>
-          <img className="footer_link_image" src={aboutLogo} alt="" />
-        </div>
-      </Link>
-      <Link to="/" className="footer_link">
-        <div className="footer_link_container">
-          <p className="footer_link_text">Contact</p>
-          <img className="footer_link_image" src={contactLogo} alt="" />
-        </div>
-      </Link>
-      <a href="https://company.wizards.com/fr/legal/fancontentpolicy" target="_blank" className="footer_link" rel="noreferrer">
-        <div className="footer_link_container">
-          <p className="footer_link_text">Confidentialité</p>
-          <img className="footer_link_image" src={politieLogo} alt="" />
-        </div>
-      </a>
-    </footer>
+    <Box
+      bgcolor="text.secondary"
+      color="gray"
+      sx={{
+        marginTop: 37,
+      }}
+    >
+      <Container
+        maxWidth="100%"
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'rows',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+
+          }}
+        >
+          <Link
+            href="/"
+            underline="hover"
+            sx={{
+              p: 2,
+              color: 'primary.contrastText',
+            }}
+          >
+            Contact
+          </Link>
+          <Link
+            href="/"
+            underline="hover"
+            sx={{
+              color: 'primary.contrastText',
+              p: 2,
+            }}
+          >
+            A propos
+          </Link>
+        </Box>
+        <Box
+          sx={{
+            paddingBottom: 2,
+          }}
+        >
+          <Link
+            href="https://company.wizards.com/fr/legal/fancontentpolicy"
+            target="_blank"
+            sx={{
+              color: 'primary.contrastText',
+              fontSize: '0.5rem',
+              textAlign: 'center',
+            }}
+            underline="hover"
+          >
+            Compagnon-JDR est un contenu de fan non officiel autorisé dans le cadre de la Politique
+            des contenus de fans. Ni approuvé, ni promu par Wizards of the Coast.
+            Certaines parties des matériaux utilisés sont la propriété de Wizards of the Coast.
+            ©Wizards of the Coast LLC.
+          </Link>
+        </Box>
+      </Container>
+    </Box>
   );
 }

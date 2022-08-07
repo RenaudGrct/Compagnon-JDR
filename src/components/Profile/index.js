@@ -68,8 +68,8 @@ export default function Profile() {
         <Box
           component="form"
           sx={{
-            backgroundColor: 'primary.main',
-            opacity: [0.7, 0.7, 0.7],
+            // backgroundColor: 'primary.main',
+            // opacity: [0.7, 0.7, 0.7],
             marginTop: '5rem',
             padding: '1rem',
             gap: '2rem',

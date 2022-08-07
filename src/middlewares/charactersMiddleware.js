@@ -128,32 +128,32 @@ const charactersMiddleware = (store) => (next) => (action) => {
       // GERER LOGIQUE USER VS GUEST
 
       next(action);
+      if (!user.guestId) {
+        const config = {
 
-      const config = {
-
-        method: 'post',
-        url: `https://api-compagnon-jdr.herokuapp.com/api/character/user/${user.userId}`,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `bearer ${userToken}`,
-        },
-        data: {
-          character: {
-            name: characters.character.name,
-            race_id: Number(characters.character.fetchedCharacterRaceObject.id),
-            class_id: Number(characters.character.fetchedCharacterClassObject.id),
-            background_id: Number(characters.character.selectedBackground),
+          method: 'post',
+          url: `https://api-compagnon-jdr.herokuapp.com/api/character/user/${user.userId}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `bearer ${userToken}`,
           },
-          // y en a deux
-          skill_id: characters.character.skills,
-          // y en a un
-          feature_choice_id: Number(characters.character.classAbility),
+          data: {
+            character: {
+              name: characters.character.name,
+              race_id: Number(characters.character.fetchedCharacterRaceObject.id),
+              class_id: Number(characters.character.fetchedCharacterClassObject.id),
+              background_id: Number(characters.character.selectedBackground),
+            },
+            // y en a deux
+            skill_id: characters.character.skills,
+            // y en a un
+            feature_choice_id: Number(characters.character.classAbility),
 
-          /*
+            /*
           faudra ajouter les modifiers qui se trouvent dans
           characters.character.characterRace.score_modifier
             */
-          ability_score:
+            ability_score:
               {
                 strength: Number(characters.character.strength),
                 charisma: Number(characters.character.charisma),
@@ -163,34 +163,87 @@ const charactersMiddleware = (store) => (next) => (action) => {
                 intelligence: Number(characters.character.intelligence),
 
               },
-        },
-        withCredentials: true,
-      };
-      console.log(config.data);
+          },
+          withCredentials: true,
+        };
+        console.log(config.data);
 
-      axios(config)
-        .then((response) => {
-          store.dispatch(submitCharacterCreationSuccess(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          console.log('yes les tontons, je suis le finally du creation');
-        });
+        axios(config)
+          .then((response) => {
+            store.dispatch(submitCharacterCreationSuccess(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            console.log('yes les tontons, je suis le finally du creation');
+          });
+      }
+      else if (user.guestId) {
+        const config = {
+
+          method: 'post',
+          url: `https://api-compagnon-jdr.herokuapp.com/api/character/guest/${user.guestId}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `bearer ${userToken}`,
+          },
+          data: {
+            character: {
+              name: characters.character.name,
+              race_id: Number(characters.character.fetchedCharacterRaceObject.id),
+              class_id: Number(characters.character.fetchedCharacterClassObject.id),
+              background_id: Number(characters.character.selectedBackground),
+            },
+            // y en a deux
+            skill_id: characters.character.skills,
+            // y en a un
+            feature_choice_id: Number(characters.character.classAbility),
+
+            /*
+            faudra ajouter les modifiers qui se trouvent dans
+            characters.character.characterRace.score_modifier
+              */
+            ability_score:
+                {
+                  strength: Number(characters.character.strength),
+                  charisma: Number(characters.character.charisma),
+                  dexterity: Number(characters.character.dexterity),
+                  wisdom: Number(characters.character.wisdom),
+                  constitution: Number(characters.character.constitution),
+                  intelligence: Number(characters.character.intelligence),
+
+                },
+          },
+          withCredentials: true,
+        };
+        console.log(config.data);
+
+        axios(config)
+          .then((response) => {
+            store.dispatch(submitCharacterCreationSuccess(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            console.log('yes les tontons, je suis le finally du creation');
+          });
+      }
       break;
     }
 
     case SUBMIT_CHARACTER_DELETION: {
       const userToken = localStorage.getItem('token');
       const { user } = store.getState();
+      const { characters } = store.getState();
 
       next(action);
 
       const config = {
 
         method: 'delete',
-        url: `https://api-compagnon-jdr.herokuapp.com/api/character/user/${user.userId}`,
+        url: `https://api-compagnon-jdr.herokuapp.com/api/character/${characters.character.storedCharacterId}/user/${user.userId}`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `bearer ${userToken}`,
@@ -305,7 +358,7 @@ const charactersMiddleware = (store) => (next) => (action) => {
         const config = {
 
           method: 'get',
-          url: `https://api-compagnon-jdr.herokuapp.com/api/guest/${characters.character.storedCharacterId}/guest/${user.guestId}`,
+          url: `https://api-compagnon-jdr.herokuapp.com/api/character/${characters.character.storedCharacterId}/guest/${user.guestId}`,
           headers: {
             'Content-Type': 'application/json',
             Authorization: `bearer ${token}`,
