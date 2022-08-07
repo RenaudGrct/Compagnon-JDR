@@ -8,11 +8,18 @@ export default function Footer() {
       bgcolor="text.secondary"
       color="gray"
       sx={{
-        marginTop: 37,
+        display: 'flex',
+        alignContent: 'center',
+        marginTop: '38rem',
       }}
     >
       <Container
         maxWidth="100%"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
         <Box
           sx={{

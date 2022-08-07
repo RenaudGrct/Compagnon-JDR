@@ -67,7 +67,7 @@ function Homepage() {
             gap: '2rem',
             color: 'primary.main',
             backgroundColor: 'primary.main',
-            opacity: [0.9, 0.8, 0.7],
+            opacity: [0.5, 0.5, 0.6],
 
           }}
         >
