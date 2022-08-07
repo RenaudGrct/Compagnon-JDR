@@ -3,6 +3,6 @@
   publish = "dist/"
 
 [[redirects]]
-from= "/*"
+from = "/*"
 to = "https://compagnonjdr.netlify.app/"
 status = 200
