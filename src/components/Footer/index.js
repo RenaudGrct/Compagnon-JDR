@@ -8,6 +8,7 @@ export default function Footer() {
       bgcolor="text.secondary"
       color="gray"
       sx={{
+        fontFamily: 'monospace',
         display: 'flex',
         alignContent: 'center',
         marginTop: '38rem',

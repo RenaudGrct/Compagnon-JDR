@@ -118,7 +118,7 @@ export default function CharacterManagement() {
                     src={`images/${character.race}.jpg`}
                     // alt="green iguana"
                     alt={`/images/${character.race},jpg`}
-                    height="200px"
+                    height="100%"
                   />
                   <CardContent>
                     <Typography align="center" gutterBottom variant="h4" component="div">
