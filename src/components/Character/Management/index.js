@@ -30,6 +30,7 @@ export default function CharacterManagement() {
   const {
     isSuccess,
     userId,
+    guestId
   } = useSelector((state) => state.user);
 
   const { characterIsDelete } = useSelector((state) => state.characters);
@@ -50,7 +51,7 @@ export default function CharacterManagement() {
 
   useEffect(() => {
     dispatch(getAllCharacters());
-  }, [userId, characterIsDelete]);
+  }, [userId, guestId, characterIsDelete]);
 
   const navigate = useNavigate();
 
